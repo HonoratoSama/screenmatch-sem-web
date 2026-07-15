@@ -24,7 +24,21 @@ public class ConsumoApi {
         }
 
         String json = response.body();
+        int statusCode = response.statusCode();
         return json;
+
+    }
+
+    public int obterStatusCode(String endereco) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endereco))
+                .build();
+        HttpResponse<String> response = null;
+        response = client
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.statusCode();
+        return statusCode;
     }
 
 }
